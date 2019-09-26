@@ -51,7 +51,7 @@ void decrypt(string fi, string fo, Code code){
     bool disp=data._int.EVEN%2;
     while((bts_now-2*disp)<bts_tot){
         file_i.read(&ibts[0], 2);
-        cout<<int((unsigned char)(ibts[0]))<<" _ "<<int((unsigned char)(ibts[1]));
+        debug<<int((unsigned char)(ibts[0]))<<" _ "<<int((unsigned char)(ibts[1]));
         valnow=(unsigned char)(ibts[1])*256+ibts[0];
         //cout<<valnow;
         debug<<" = "<<valnow<<endl;
