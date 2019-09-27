@@ -52,10 +52,10 @@ void decrypt(string fi, string fo, Code code){
     while((bts_now-2*disp)<bts_tot){
         file_i.read(&ibts[0], 2);
         debug<<int((unsigned char)(ibts[0]))<<" _ "<<int((unsigned char)(ibts[1]));
-        valnow=(unsigned char)(ibts[1])*256+ibts[0];
+        valnow=(unsigned char)(ibts[1])*256+(unsigned char)(ibts[0]);
         //cout<<valnow;
-        debug<<" = "<<valnow<<endl;
-        debug<<int((unsigned char)(ibts[0]))<<"+"<<int((unsigned char)(ibts[1]))<<"*256"<<"="<<valnow<<endl;
+        debug<<" = "<<valnow<<" > "<<int(ibts[1])<<endl;
+        //debug<<int((unsigned char)(ibts[0]))<<"+"<<int((unsigned char)(ibts[1]))<<"*256"<<"="<<valnow<<endl;
         valnow-=addnow;
         while(valnow<0)valnow+=65536;
         //cout<<"\t-\t"<<addnow<<"\t="<<valnow<<endl;

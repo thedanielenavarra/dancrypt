@@ -1,6 +1,7 @@
 #include<iostream>
 #include"danlib.h"
 #include"dancrypt.h"
+#include<ctime>
 
 using namespace std;
 
@@ -24,15 +25,22 @@ usage of class Code:
 
 */
 int main(int argc, char* argv[]){
+    clock_t start=clock();
+    ofstream log("dancrypt.log");
+    int bts;
+    double duration;
 	if(argc>2){
 		if(argv[1][0]=='c'){//CRYPT
 			try{
-			string fi=argv[2], fo=argv[3];
-			string c;
-			Code code(fi);
-			c=code.getcode();
-			cout<<c<<endl;
-            crypt(fi, fo, code);
+                string fi=argv[2], fo=argv[3];
+                string c;
+                Code code(fi);
+                c=code.getcode();
+                cout<<c<<endl;
+                crypt(fi, fo, code);
+                duration=(clock()-start)/(double)CLOCKS_PER_SEC;
+                bts=flen(fi);
+                log<<(double)(bts)/duration;
 			}catch(...){
 				help("ARGUMENT in crypt ERROR");
 			}
@@ -42,6 +50,9 @@ int main(int argc, char* argv[]){
 				string c=argv[4];
 				Code code(fi, c);
                 decrypt(fi, fo, code);
+                duration=(clock()-start)/(double)CLOCKS_PER_SEC;
+                bts=flen(fi);
+                log<<(double)(bts)/duration;
 			}catch(...){
 				help("ARGUMENT in decrypt ERROR");
 			}
@@ -53,6 +64,8 @@ int main(int argc, char* argv[]){
 	}else{
 		help("No instruction");
 	}
-	return 0;
+	log.close();
+    return 0;
+    
 
 }
