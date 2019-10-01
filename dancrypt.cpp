@@ -32,12 +32,14 @@ int main(int argc, char* argv[]){
     double duration, p_duration=0;
     int bts, p_bts=0;
     if(fexists("dancrypt.log")){
-        cout<<"READING LOG";
         ifstream f("dancrypt.log");
         f>>p_bts;
         f>>p_duration;
-    }else{
-        cout<<"NO LOG FOUND";
+        f.close();
+        if(argv[1][0]=='c'&&argc==5||argv[1][0]=='d'&&argc==6){
+            int fl=flen(argv[3]);
+            cout<<"I worked for "<<p_duration/60<<" minutes, to process "<<argv[3]<<" ["<<fl<<" bytes] I'll need "<<fl*p_duration/p_bts<<" seconds\n";
+        }
     }
     ofstream log("dancrypt.log");
 	if(argc>2){
