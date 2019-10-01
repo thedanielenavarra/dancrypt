@@ -6,6 +6,10 @@
 
 using namespace std;
 
+bool fexists(string fn){
+    return ifstream(fn.c_str()).good();
+}
+
 int flen(string fn){
 	ifstream i(fn.c_str(), ios::binary | ios::ate);
 	int p=i.tellg();

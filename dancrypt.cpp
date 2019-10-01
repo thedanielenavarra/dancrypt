@@ -24,11 +24,22 @@ usage of class Code:
 					code validation and auto setting of keys
 
 */
+
+
+
 int main(int argc, char* argv[]){
     clock_t start=clock();
+    double duration, p_duration=0;
+    int bts, p_bts=0;
+    if(fexists("dancrypt.log")){
+        cout<<"READING LOG";
+        ifstream f("dancrypt.log");
+        f>>p_bts;
+        f>>p_duration;
+    }else{
+        cout<<"NO LOG FOUND";
+    }
     ofstream log("dancrypt.log");
-    int bts;
-    double duration;
 	if(argc>2){
 		if(argv[1][0]=='c'){//CRYPT
 			try{
@@ -38,9 +49,9 @@ int main(int argc, char* argv[]){
                 c=code.getcode();
                 cout<<c<<endl;
                 crypt(fi, fo, code);
-                duration=(clock()-start)/(double)CLOCKS_PER_SEC;
-                bts=flen(fi);
-                log<<(double)(bts)/duration;
+                duration=p_duration+(clock()-start)/(double)CLOCKS_PER_SEC;
+                bts=p_bts+flen(fi);
+                log<<(double)(bts)<<endl<<duration;
 			}catch(...){
 				help("ARGUMENT in crypt ERROR");
 			}
@@ -50,9 +61,9 @@ int main(int argc, char* argv[]){
 				string c=argv[4];
 				Code code(fi, c);
                 decrypt(fi, fo, code);
-                duration=(clock()-start)/(double)CLOCKS_PER_SEC;
-                bts=flen(fi);
-                log<<(double)(bts)/duration;
+                duration=p_duration+(clock()-start)/(double)CLOCKS_PER_SEC;
+                bts=p_bts+flen(fi);
+                log<<(double)(bts)<<endl<<duration;
 			}catch(...){
 				help("ARGUMENT in decrypt ERROR");
 			}
