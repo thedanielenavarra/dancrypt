@@ -16,6 +16,7 @@ class dcgui:
 			return str(fl*d/b)
 		except:
 			messagebox.showerror("There's no log file")
+			return str(1024)
 	
 	def chgc(o, e):
 		o.root.code["state"]="readonly"
